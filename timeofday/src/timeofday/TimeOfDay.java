@@ -8,41 +8,34 @@ package timeofday;
  *  | 0 <= getMinuten() &&  getMinuten()  <= 59 
 */
 
-
-
 public class TimeOfDay {
 	
 	/**
-	 * @invar uren should be between 0 and 23.
-	 *  | 0 <= uren && 23 >= uren
+	 * @invar minutesSinceMidnight should be between 0 and 1439.
+	 *   |  0 <= minutesSinceMidnight && 1439 >= minutesSinceMidnight
 	 */
-	
-	private int uren;
+	public int minutesSinceMidnight;
 
-	/**
-	 * @invar minuten should be between 0 and 59.
-	 *  | 0 <= minuten &&  minuten  <= 59 
-	 */
-	
-	private int minuten;
-	
 	/**
 	 * @pre uren should be between 0 and 23.
 	 *  | 0 <= uren && 23 >= uren
 	 * @pre minuten should be between 0 and 59.
 	 *  | 0 <= minuten &&  minuten  <= 59 
+	 * @post minutesSinceMidnight should be between 0 and 1439.
+	 *  |  0 <= minutesSinceMidnight && 1439 >= minutesSinceMidnight
 	 */
 	public TimeOfDay (int uren, int minuten) {
-		setUren(uren);
-		setMinuten(minuten);	
+		minutesSinceMidnight = (60*uren) + minuten;	
 	}
 	/**
 	 * @pre uren should be between 0 and 23.
 	 *  | 0 <= uren && 23 >= uren
+	 * @post minutesSinceMidnight should be between 0 and 1439.
+	 *  |  0 <= minutesSinceMidnight && 1439 >= minutesSinceMidnight
 	 */
 	
 	public void setUren (int uren) {
-		this.uren = uren ;
+		minutesSinceMidnight = (minutesSinceMidnight%60) + (60*uren);
 	}
 	
 	/**
@@ -51,15 +44,16 @@ public class TimeOfDay {
 	 */
 	
 	public void setMinuten(int minuten) {
-		this.minuten = minuten;
+		int uren = minutesSinceMidnight/60 ;
+		minutesSinceMidnight = uren*60 + minuten;
 	}
 	
 	public int getUren() {
-		return uren; 
+		return minutesSinceMidnight/60; 
 	}
 	
 	public int getMinuten() {
-		return minuten;
+		return minutesSinceMidnight%60;
 	}
 } 
 
